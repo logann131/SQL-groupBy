@@ -1,3 +1,9 @@
+/* Nam Phu Nguyen (Logan)
+   Database
+   Programing Assignment
+ */ 
+
+
 Group By practices
 
 
