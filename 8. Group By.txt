@@ -1,3 +1,9 @@
+
+/* Nam Phu Nguyen (Logan)
+   Database
+   Programing Assignment
+ */ 
+
 --find out how many products are there in each category
 
 SELECT categoryID, COUNT(*)
