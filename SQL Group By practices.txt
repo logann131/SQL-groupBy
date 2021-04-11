@@ -1,0 +1,74 @@
+Group By practices
+
+
+----total price of each beverages sold and how many times each beverage order was placed
+
+SELECT p.productName, count(*), sum(quantity*price) 
+FROM OrderDetails od
+left join products p
+on od.productID = p.productID
+left join categories ct
+on ct.categoryID = p.categoryID
+where ct.categoryName = "Beverages"
+group by p.productName
+
+
+
+
+--Find out how many times each employee oderded a product and total price of the each product (s)he ordered
+
+SELECT e.employeeID, p.productID, count(*), SUM(od.quantity * p.price)
+FROM Orders o
+left join employees e
+on o.employeeID = e.employeeID
+left join orderdetails od
+on od.orderID = o.orderID
+left join products p
+on p.productID = od.productID
+group by e.employeeID, p.productid
+
+
+
+
+
+
+----Find out all the customers who ordered beverages more than 2 times
+
+select c.customerID, count(*) 
+from customers c
+left join orders o
+on c.customerID = o.customerID
+left join orderdetails od
+on o.orderID = od.orderID
+left join products p
+on p.productID = od.productID
+left join categories ct
+on ct.categoryID = p.categoryID
+where ct.categoryName = "Beverages"
+group by c.customerID
+having count(*) > 2;
+
+
+
+--How many different categories did each supplier supply
+
+select s.supplierID, ct.categoryID, count(*)
+from products p 
+left join suppliers s
+on s.supplierID = p.supplierID
+left join categories ct
+on ct.categoryID = p.categoryID
+group by s.supplierID, ct.categoryID;
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,87 @@
+--find out how many products are there in each category
+
+SELECT categoryID, COUNT(*)
+  FROM products
+GROUP BY categoryID;
+
+
+--find out how many times each product was ordered 
+SELECT productID, count(*)
+FROM orderdetails
+GROUP BY productID;
+
+
+--find out how many products are in each category and select only those categories that have more than 10 products in them
+
+SELECT categoryID, count(*)
+from products
+group by categoryID
+having count(*) > 10;
+
+
+--find out how many products are in each category and select only those categories that have more than 10 products in them
+whose names start with "c".
+
+select p.categoryId, count(*)
+from products p
+left join categories c
+on p.categoryID = c.categoryID
+where c.categoryName LIKE "c%"
+group by p.categoryId
+having count(*) > 10;
+
+
+
+
+--find out the number of orders placed all the employees whose first name or last name starts with "s"
+
+select e.employeeID, count(*)
+from employees e
+left join orders o
+on e.employeeID = o.employeeID
+WHERE e.firstname LIKE "s%"
+OR e.lastName LIKE "s%"
+group by e.employeeID;
+
+
+
+--find the total quantity of each products ordered 
+
+select productID, SUM(quantity)
+from orderdetails 
+group by productID;
+
+
+
+--find out all the customers who ordered the same category more than 2 times 
+
+select c.customerID, ca.categoryID, count(ca.categoryID)
+from customers c
+left join orders o
+on c.customerID = o.customerID
+left join orderdetails od
+on o.orderID = od.orderID
+left join products p
+on p.productID = od.productID
+left join categories ca
+on ca.categoryID = p.categoryID
+group by c.customerID, ca.categoryID
+having count(ca.categoryID) > 2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
